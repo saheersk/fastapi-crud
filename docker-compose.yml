@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  postgres_blog:
+    image: postgres:16
+    container_name: postgres_blog_container
+    environment:
+      POSTGRES_DB: blog_db
+      POSTGRES_USER: blog_user
+      POSTGRES_PASSWORD: blog_user123
+    volumes:
+      - postgres_blog_data:/var/lib/postgresql/data
+
+  blog_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: blog-app:latest
+    container_name: blog-app
+    command: sh -c "uvicorn blog.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres_blog
+
+volumes:
+  postgres_blog_data:
