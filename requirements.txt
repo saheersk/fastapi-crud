@@ -1,4 +1,9 @@
+bcrypt
 fastapi
+passlib
+psycopg2-binary
+python-jose
+python-multipart
 uvicorn
 sqlalchemy
-psycopg2-binary
+
